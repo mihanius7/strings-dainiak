@@ -21,14 +21,12 @@ public class StringUtil {
 		return output;
 	}
 
-	public static String replaceIgnoreCase(final String targetString, String word,
-			String wordReplacement) {
+	public static String replaceIgnoreCase(final String targetString, String word, String wordReplacement) {
 		char[] lowerChars = word.toLowerCase().toCharArray();
 		char[] upperChars = word.toUpperCase().toCharArray();
 		String regexp = "";
 		for (int i = 0; i < word.length(); i++)
 			regexp = regexp.concat("[" + lowerChars[i] + "|" + upperChars[i] + "]");
-		String output = targetString.replaceAll(regexp, wordReplacement);
-		return output;
+		return targetString.replaceAll(regexp, wordReplacement);
 	}
 }
