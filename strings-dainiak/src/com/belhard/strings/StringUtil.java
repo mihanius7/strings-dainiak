@@ -4,6 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtil {
+	public static final String DIGITS = "\\d";
+	public static final String NUMBERS = "[0-9]*\\.?[0-9]+";
+
 	public static String camelToSnake(final String targetString) {
 		Pattern regex = Pattern.compile("[a-z][A-Z]");
 		Matcher matcher = regex.matcher(targetString);
@@ -28,5 +31,19 @@ public class StringUtil {
 		for (int i = 0; i < word.length(); i++)
 			regexp = regexp.concat("[" + lowerChars[i] + "|" + upperChars[i] + "]");
 		return targetString.replaceAll(regexp, wordReplacement);
+	}
+
+	public static int countCoincidencies(String targetString, String regexp, boolean printSteps) {
+		int count = 0;
+		Pattern regex = Pattern.compile(regexp);
+		Matcher matcher = regex.matcher(targetString);
+		if (printSteps)
+			System.out.print("\nFound: ");
+		while (matcher.find()) {
+			count++;
+			if (printSteps)
+				System.out.print("'" + matcher.group() + "', ");
+		}
+		return count;
 	}
 }
