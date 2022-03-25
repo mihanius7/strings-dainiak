@@ -1,4 +1,4 @@
-package com.belhard.strings;
+package com.belhard.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,5 +45,9 @@ public class StringUtil {
 				System.out.print("'" + matcher.group() + "', ");
 		}
 		return count;
+	}
+
+	public static String fixSpaces(String targetString) {
+		return targetString;
 	}
 }
