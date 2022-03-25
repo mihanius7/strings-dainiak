@@ -33,21 +33,33 @@ public class StringUtil {
 		return targetString.replaceAll(regexp, wordReplacement);
 	}
 
-	public static int countCoincidencies(String targetString, String regexp, boolean printSteps) {
+	public static int countCoincidencies(String targetString, String regexp, boolean printFound) {
 		int count = 0;
 		Pattern regex = Pattern.compile(regexp);
 		Matcher matcher = regex.matcher(targetString);
-		if (printSteps)
+		if (printFound)
 			System.out.print("\nFound: ");
 		while (matcher.find()) {
 			count++;
-			if (printSteps)
+			if (printFound)
 				System.out.print("'" + matcher.group() + "', ");
 		}
 		return count;
 	}
 
-	public static String fixSpaces(String targetString) {
-		return targetString;
+	public static String fixSpaces(final String targetString) {
+		String output = new String(targetString);
+		output = output.replaceAll(" {2,}", " ");
+		
+		Pattern regex = Pattern.compile(" [,.:;?!)>}]");
+		Matcher matcher = regex.matcher(output);
+		String foundFragment;
+		char punctuationMark;
+		while (matcher.find()) {
+			foundFragment = matcher.group();
+			punctuationMark = foundFragment.charAt(1);
+			output = output.replace(foundFragment, String.valueOf(punctuationMark));
+		}
+		return output.trim();
 	}
 }
