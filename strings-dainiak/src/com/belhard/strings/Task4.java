@@ -9,5 +9,4 @@ public class Task4 {
 		System.out.printf("Test case: %n" + targetString);
 		System.out.printf("%nNumbers count: " + StringUtil.countCoincidencies(targetString, StringUtil.NUMBERS, true));
 	}
-
 }
