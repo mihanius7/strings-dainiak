@@ -79,24 +79,25 @@ public class StringUtil {
 		public int startPosition, maxCharsCount;
 	}
 
-	public static boolean isPalindrome(final String targetString) {
-		String analyzedString = extractLetters(targetString);		
-		System.out.println("String for palindrome analyze: '" + analyzedString + "'");
+	public static boolean isPalindrome(final String targetString, boolean ignoreCase) {
+		String analyzedString = extractLetters(targetString);
 		if (analyzedString.isEmpty())
 			return false;
-		int stringLength = analyzedString.length();
-		char fromBeginning, fromEnding;
-		for (int i = 0; i < stringLength / 2; i++) {
-			fromBeginning = Character.toLowerCase(analyzedString.charAt(i));
-			fromEnding = Character.toLowerCase(analyzedString.charAt(stringLength - i - 1));
-			System.out.println(fromBeginning + " <-> " + fromEnding);
-			if (fromBeginning != fromEnding)
+		if (ignoreCase)
+			analyzedString = analyzedString.toLowerCase();
+		Pattern regex;
+		Matcher matcher;
+		for (int i = 0; i < analyzedString.length() / 2; i++) {
+			String str1 = String.valueOf(analyzedString.charAt(i));
+			regex = Pattern.compile("^" + "\\w{" + i + "}" + str1 + "\\w*" + str1 + "\\w{" + i + "}" + "$");
+			matcher = regex.matcher(analyzedString);
+			if (!matcher.find())
 				return false;
 		}
 		return true;
 	}
 
 	public static String extractLetters(final String targetString) {
-		return targetString.toLowerCase().replaceAll("[^a-z\\d]+", "");
+		return targetString.replaceAll("[^a-zA-Z\\d]+", "");
 	}
 }
