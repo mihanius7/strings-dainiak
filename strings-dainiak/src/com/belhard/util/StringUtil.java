@@ -62,21 +62,23 @@ public class StringUtil {
 		return output.trim();
 	}
 
-	public static TheSameChars defineMaxCharInARow(final String targetString, String targetChar) {
-		TheSameChars result = new TheSameChars();
+	public static StringFragment defineMaxCharInARow(final String targetString, String targetChar) {
+		StringFragment result = new StringFragment();
 		Pattern regex = Pattern.compile(targetChar + "+");
 		Matcher matcher = regex.matcher(targetString);
 		while (matcher.find()) {
-			if (matcher.group().length() > result.maxCharsCount) {
-				result.maxCharsCount = matcher.group().length();
+			if (matcher.group().length() > result.charsCount) {
+				result.charsCount = matcher.group().length();
 				result.startPosition = targetString.indexOf(matcher.group());
+				result.content = matcher.group();
 			}
 		}
 		return result;
 	}
 
-	public static class TheSameChars {
-		public int startPosition, maxCharsCount;
+	public static class StringFragment {
+		public int charsCount, startPosition;
+		public String content;
 	}
 
 	public static boolean isPalindrome(final String targetString, boolean ignoreCase) {
