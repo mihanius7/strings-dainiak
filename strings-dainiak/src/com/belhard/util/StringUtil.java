@@ -49,9 +49,8 @@ public class StringUtil {
 
 	public static String cleanSpaces(final String targetString) {
 		String output = new String(targetString);
-		output = output.replaceAll(" {2,}", " ");
-
-		Pattern regex = Pattern.compile(" [,.:;?!)>}]");
+		output = output.replaceAll("\\s{2,}", " ");
+		Pattern regex = Pattern.compile("\\s[,.:;?!)>}]");
 		Matcher matcher = regex.matcher(output);
 		String foundFragment;
 		char punctuationMark;
@@ -78,5 +77,27 @@ public class StringUtil {
 
 	public static class TheSameChars {
 		public int startPosition, maxCharsCount;
+	}
+
+	public static boolean isPalindrome(final String targetString, boolean ignoreCase) {
+		String analyzedString = extractLetters(targetString);
+		if (analyzedString.isEmpty())
+			return false;
+		if (ignoreCase)
+			analyzedString = analyzedString.toLowerCase();
+		Pattern regex;
+		Matcher matcher;
+		for (int i = 0; i < analyzedString.length() / 2; i++) {
+			String str1 = String.valueOf(analyzedString.charAt(i));
+			regex = Pattern.compile("^" + "\\w{" + i + "}" + str1 + "\\w*" + str1 + "\\w{" + i + "}" + "$");
+			matcher = regex.matcher(analyzedString);
+			if (!matcher.find())
+				return false;
+		}
+		return true;
+	}
+
+	public static String extractLetters(final String targetString) {
+		return targetString.replaceAll("[^a-zA-Z\\d]+", "");
 	}
 }
