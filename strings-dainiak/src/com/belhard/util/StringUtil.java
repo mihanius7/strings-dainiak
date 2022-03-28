@@ -47,10 +47,10 @@ public class StringUtil {
 		return count;
 	}
 
-	public static String fixSpaces(final String targetString) {
+	public static String cleanSpaces(final String targetString) {
 		String output = new String(targetString);
 		output = output.replaceAll(" {2,}", " ");
-		
+
 		Pattern regex = Pattern.compile(" [,.:;?!)>}]");
 		Matcher matcher = regex.matcher(output);
 		String foundFragment;
@@ -61,5 +61,22 @@ public class StringUtil {
 			output = output.replace(foundFragment, String.valueOf(punctuationMark));
 		}
 		return output.trim();
+	}
+
+	public static TheSameChars defineMaxCharInARow(final String targetString, String targetChar) {
+		TheSameChars result = new TheSameChars();
+		Pattern regex = Pattern.compile(targetChar + "+");
+		Matcher matcher = regex.matcher(targetString);
+		while (matcher.find()) {
+			if (matcher.group().length() > result.maxCharsCount) {
+				result.maxCharsCount = matcher.group().length();
+				result.startPosition = targetString.indexOf(matcher.group());
+			}
+		}
+		return result;
+	}
+
+	public static class TheSameChars {
+		public int startPosition, maxCharsCount;
 	}
 }
