@@ -7,7 +7,7 @@ import com.belhard.util.StringUtil.StringFragment;
 
 public class Task10 {
 	public static void main(String[] args) {
-		String targetString = STRING_CASES[1];
+		String targetString = STRING_CASES[2];
 		System.out.printf("Test case: " + targetString);
 		StringFragment longestWord = StringUtil.defineMaxCharInARow(targetString, "\\w+");
 		System.out.printf("%n%nThe longest word is: '%s', length %d", longestWord.content, longestWord.charsCount);
