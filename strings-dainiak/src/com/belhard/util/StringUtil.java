@@ -6,8 +6,9 @@ import java.util.regex.Pattern;
 public class StringUtil {
 	public static final String DIGITS = "\\d";
 	public static final String NUMBERS = "[0-9]*\\.?[0-9]+";
-	public static final String LOWER_LETTERS = "[a-z]{1}";
-	public static final String UPPER_LETTERS = "[A-Z]{1}";
+	public static final String LOWER_LETTER = "[a-z]{1}";
+	public static final String UPPER_LETTER = "[A-Z]{1}";
+	public static final String SENTENCE = "[a-zA-Z]+\\s*[.!?]+|\\w+$|\\s+\\d+[.!?]+";
 
 	public static String camelToSnake(final String targetString) {
 		Pattern regex = Pattern.compile("[a-z][A-Z]");
