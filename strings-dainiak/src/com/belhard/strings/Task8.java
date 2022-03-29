@@ -8,8 +8,8 @@ public class Task8 {
 
 	public static void main(String[] args) {
 		for (String targetString : STRING_CASES) {
-			System.out.printf("Test case: %n%s", targetString);
-			System.out.printf("%nIs palindrome: %s%n%n", StringUtil.isPalindrome(targetString, true));
+			System.out.printf("%n%nTest case: %n" + targetString);
+			System.out.printf("%n\tIs palindrome: " + StringUtil.isPalindrome(targetString, true));
 		}
 	}
 }

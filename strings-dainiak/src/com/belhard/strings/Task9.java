@@ -10,7 +10,7 @@ public class Task9 {
 		char ch = 'e';
 		for (String targetString : STRING_CASES) {
 			System.out.printf("Test case: %n%s", targetString);
-			System.out.printf("%nChar '" + ch + "' found: %d%n%n",
+			System.out.printf("%nChar '" + ch + "' count: %d%n%n",
 					StringUtil.countCoincidencies(targetString, String.valueOf(ch), false));
 		}
 	}
