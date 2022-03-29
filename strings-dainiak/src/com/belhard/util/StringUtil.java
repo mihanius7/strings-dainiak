@@ -6,6 +6,9 @@ import java.util.regex.Pattern;
 public class StringUtil {
 	public static final String DIGITS = "\\d";
 	public static final String NUMBERS = "[0-9]*\\.?[0-9]+";
+	public static final String LOWER_LETTER = "[a-z]{1}";
+	public static final String UPPER_LETTER = "[A-Z]{1}";
+	public static final String SENTENCE = "[a-zA-Z]+\\s*[.!?]+|\\w+$|\\s+\\d+[.!?]+";
 
 	public static String camelToSnake(final String targetString) {
 		Pattern regex = Pattern.compile("[a-z][A-Z]");
@@ -29,7 +32,7 @@ public class StringUtil {
 		char[] upperChars = word.toUpperCase().toCharArray();
 		String regexp = "";
 		for (int i = 0; i < word.length(); i++)
-			regexp = regexp.concat("[" + lowerChars[i] + "|" + upperChars[i] + "]");
+			regexp = regexp.concat("[" + lowerChars[i] + upperChars[i] + "]");
 		return targetString.replaceAll(regexp, wordReplacement);
 	}
 
@@ -62,21 +65,23 @@ public class StringUtil {
 		return output.trim();
 	}
 
-	public static TheSameChars defineMaxCharInARow(final String targetString, String targetChar) {
-		TheSameChars result = new TheSameChars();
+	public static StringFragment defineMaxCharInARow(final String targetString, String targetChar) {
+		StringFragment result = new StringFragment();
 		Pattern regex = Pattern.compile(targetChar + "+");
 		Matcher matcher = regex.matcher(targetString);
 		while (matcher.find()) {
-			if (matcher.group().length() > result.maxCharsCount) {
-				result.maxCharsCount = matcher.group().length();
+			if (matcher.group().length() > result.charsCount) {
+				result.charsCount = matcher.group().length();
 				result.startPosition = targetString.indexOf(matcher.group());
+				result.content = matcher.group();
 			}
 		}
 		return result;
 	}
 
-	public static class TheSameChars {
-		public int startPosition, maxCharsCount;
+	public static class StringFragment {
+		public int charsCount, startPosition;
+		public String content;
 	}
 
 	public static boolean isPalindrome(final String targetString, boolean ignoreCase) {
@@ -98,6 +103,6 @@ public class StringUtil {
 	}
 
 	public static String extractLetters(final String targetString) {
-		return targetString.replaceAll("[^a-zA-Z\\d]+", "");
+		return targetString.replaceAll("\\W+", "");
 	}
 }
