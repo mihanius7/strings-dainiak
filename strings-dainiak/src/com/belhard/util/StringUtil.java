@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 public class StringUtil {
 	public static final String DIGITS = "\\d";
 	public static final String NUMBERS = "[0-9]*\\.?[0-9]+";
+	public static final String LOWER_LETTERS = "[a-z]{1}";
+	public static final String UPPER_LETTERS = "[A-Z]{1}";
 
 	public static String camelToSnake(final String targetString) {
 		Pattern regex = Pattern.compile("[a-z][A-Z]");
@@ -29,7 +31,7 @@ public class StringUtil {
 		char[] upperChars = word.toUpperCase().toCharArray();
 		String regexp = "";
 		for (int i = 0; i < word.length(); i++)
-			regexp = regexp.concat("[" + lowerChars[i] + "|" + upperChars[i] + "]");
+			regexp = regexp.concat("[" + lowerChars[i] + upperChars[i] + "]");
 		return targetString.replaceAll(regexp, wordReplacement);
 	}
 
@@ -100,6 +102,6 @@ public class StringUtil {
 	}
 
 	public static String extractLetters(final String targetString) {
-		return targetString.replaceAll("[^a-zA-Z\\d]+", "");
+		return targetString.replaceAll("\\W+", "");
 	}
 }
